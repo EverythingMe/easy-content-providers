@@ -24,13 +24,14 @@ public class Data<T extends Entity> {
         if (mCursor == null) {
             return data;
         }
-        while (mCursor.moveToNext()) {
-            T t = Entity.create(mCursor, mCls);
-            data.add(t);
+        try {
+            while (mCursor.moveToNext()) {
+                T t = Entity.create(mCursor, mCls);
+                data.add(t);
+            }
+        } finally {
+            mCursor.close();
         }
-        mCursor.close();
-
-        // TODO - close cursor more safely
         return data;
     }
 
