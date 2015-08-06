@@ -132,6 +132,9 @@ public abstract class Entity {
                     case Long:
                         contentValues.put(column, Long.valueOf(String.valueOf(value)));
                         break;
+                    case Double:
+                        contentValues.put(column, Double.valueOf(String.valueOf(value)));
+                        break;
                     default:
                         break;
                 }

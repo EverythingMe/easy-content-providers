@@ -27,6 +27,7 @@ public @interface FieldMapping {
         String,
         Long,
         Int,
+        Double,
         Blob
     }
 
@@ -40,6 +41,7 @@ public @interface FieldMapping {
         Boolean,
         Array,
         EnumInt,
+        Double,
         Physical
     }
 
