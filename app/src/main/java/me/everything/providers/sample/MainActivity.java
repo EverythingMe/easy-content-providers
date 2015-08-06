@@ -16,6 +16,7 @@ import me.everything.providers.sample.fragments.CalendarsFragment;
 import me.everything.providers.sample.fragments.CallsFragment;
 import me.everything.providers.sample.fragments.ContactsFragment;
 import me.everything.providers.sample.fragments.ConversationsFragment;
+import me.everything.providers.sample.fragments.DictionaryFragment;
 import me.everything.providers.sample.fragments.HomeFragment;
 import me.everything.providers.sample.fragments.SearchFragment;
 
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.drawer_browser:
                             setFragment(SearchFragment.class);
+                            break;
+                        case R.id.drawer_dictionary:
+                            setFragment(DictionaryFragment.class);
                             break;
                     }
                 } catch (Exception e) {

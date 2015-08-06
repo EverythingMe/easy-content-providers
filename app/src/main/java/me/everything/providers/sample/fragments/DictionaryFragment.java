@@ -1,0 +1,38 @@
+package me.everything.providers.sample.fragments;
+
+import android.widget.TextView;
+
+import me.everything.providers.android.dictionary.DictionaryProvider;
+import me.everything.providers.android.dictionary.Word;
+import me.everything.providers.core.Data;
+import me.everything.providers.sample.GetCursorTask;
+
+
+/**
+ * Created by sromku.
+ */
+public class DictionaryFragment extends RecycleViewCursorFragment<Word> {
+
+    @Override
+    protected String getTitle() {
+        return "Dictionary";
+    }
+
+    @Override
+    protected void bindEntity(Word word, TextView title, TextView details) {
+        title.setText(word.word);
+        details.setText(word.locale + " (" + word.frequency + ")");
+    }
+
+    protected GetCursorTask.DataFetcher<Word> getFetcher() {
+        return new GetCursorTask.DataFetcher<Word>() {
+            @Override
+            public Data<Word> getData() {
+                DictionaryProvider provider = new DictionaryProvider(getApplicationContext());
+                return provider.getWords();
+            }
+        };
+    }
+
+
+}

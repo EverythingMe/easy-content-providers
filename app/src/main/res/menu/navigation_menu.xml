@@ -35,6 +35,11 @@
             android:icon="@drawable/ic_event_note_white_24dp"
             android:title="Browser"/>
 
+        <item
+            android:id="@+id/drawer_dictionary"
+            android:icon="@drawable/ic_event_note_white_24dp"
+            android:title="Dictionary"/>
+
     </group>
 
 </menu>
