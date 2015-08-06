@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_home"
+            android:checked="true"
+            android:icon="@drawable/ic_home_white_24dp"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/drawer_contacts"
+            android:icon="@drawable/ic_portrait_white_24dp"
+            android:title="Contacts"/>
+
+        <item
+            android:id="@+id/drawer_calendar"
+            android:icon="@drawable/ic_event_note_white_24dp"
+            android:title="Calendar"/>
+
+        <item
+            android:id="@+id/drawer_calllogs"
+            android:icon="@drawable/ic_event_note_white_24dp"
+            android:title="Call Logs"/>
+
+        <item
+            android:id="@+id/drawer_telephony"
+            android:icon="@drawable/ic_event_note_white_24dp"
+            android:title="Telephony (sms)"/>
+
+        <item
+            android:id="@+id/drawer_browser"
+            android:icon="@drawable/ic_event_note_white_24dp"
+            android:title="Browser"/>
+
+    </group>
+
+</menu>
