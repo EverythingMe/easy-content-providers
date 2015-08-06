@@ -23,13 +23,13 @@ public class Word extends Entity {
     public String word;
 
     @FieldMapping(columnName = UserDictionary.Words.FREQUENCY, physicalType = FieldMapping.PhysicalType.Int)
-    public Integer frequency;
+    public int frequency;
 
     @FieldMapping(columnName = UserDictionary.Words.LOCALE, physicalType = FieldMapping.PhysicalType.String)
     public String locale;
 
     @FieldMapping(columnName = UserDictionary.Words.APP_ID, physicalType = FieldMapping.PhysicalType.Int)
-    public Integer appId;
+    public int appId;
 
     @FieldMapping(columnName = UserDictionary.Words.SHORTCUT, physicalType = FieldMapping.PhysicalType.String)
     public String shortcut;
