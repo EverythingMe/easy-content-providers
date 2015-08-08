@@ -143,6 +143,16 @@ public abstract class Entity {
         return contentValues;
     }
 
+    public static List<Object> getFlattenedValues(String[] columns, Entity entity) {
+        List<Object> values = new ArrayList<Object>();
+        for (String column : columns) {
+            Field field = getColumnField(column, entity);
+            Object value = getColumnValue(field, entity);
+            values.add(value);
+        }
+        return values;
+    }
+
     /**
      * Create new entity instance from database raw instance.
      *
