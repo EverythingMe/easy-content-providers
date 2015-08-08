@@ -146,7 +146,7 @@ public class CalendarProvider extends AbstractProvider {
      * @param calendar
      * @return number of updated rows
      */
-    public int updateCalendar(Calendar calendar) {
+    public int update(Calendar calendar) {
         return updateTableRow(Calendar.uri, calendar);
     }
 
@@ -156,7 +156,7 @@ public class CalendarProvider extends AbstractProvider {
      * @param event
      * @return number of updated rows
      */
-    public int updateEvent(Event event) {
+    public int update(Event event) {
         return updateTableRow(Event.uri, event);
     }
 
@@ -166,7 +166,7 @@ public class CalendarProvider extends AbstractProvider {
      * @param instance
      * @return
      */
-    public int updateInstance(Instance instance) {
+    public int update(Instance instance) {
         return updateTableRow(Instance.uri, instance);
     }
 
@@ -176,7 +176,7 @@ public class CalendarProvider extends AbstractProvider {
      * @param reminder
      * @return
      */
-    public int updateReminder(Reminder reminder) {
+    public int update(Reminder reminder) {
         return updateTableRow(Reminder.uri, reminder);
     }
 
@@ -186,7 +186,7 @@ public class CalendarProvider extends AbstractProvider {
      * @param attendee
      * @return
      */
-    public int updateAttendee(Attendee attendee) {
+    public int update(Attendee attendee) {
         return updateTableRow(Attendee.uri, attendee);
     }
 

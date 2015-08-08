@@ -6,7 +6,7 @@ import me.everything.providers.core.AbstractProvider;
 import me.everything.providers.core.Data;
 
 /**
- * Created by sromku on 8/6/15.
+ * Created by sromku
  */
 public class DictionaryProvider extends AbstractProvider {
 
