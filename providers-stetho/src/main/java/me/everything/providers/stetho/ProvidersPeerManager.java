@@ -28,8 +28,8 @@ public class ProvidersPeerManager extends ChromePeerManager {
 
 //      for (Entity entity : entities) {
         Database.DatabaseObject databaseParams = new Database.DatabaseObject();
-        databaseParams.id = "android-calendars" /*database.getPath()*/;
-        databaseParams.name = "Calendars" /*"database.getName()*/;
+        databaseParams.id = "providers";
+        databaseParams.name = "content-providers";
         databaseParams.domain = mContext.getPackageName();
         databaseParams.version = "N/A";
         Database.AddDatabaseEvent eventParams = new Database.AddDatabaseEvent();
@@ -45,12 +45,9 @@ public class ProvidersPeerManager extends ChromePeerManager {
         List<String> names = new ArrayList<String>();
 
         switch (databaseId) {
-            case "android-calendars":
-                names.add("Calendars");
-                names.add("Events");
-                names.add("Reminders");
-                names.add("Instances");
-                names.add("Attendees");
+            case "providers":
+                names.add("contacts");
+                names.add("calendars");
                 break;
         }
 
@@ -59,7 +56,7 @@ public class ProvidersPeerManager extends ChromePeerManager {
 
     public boolean contains(String databaseId) {
         // TODO
-        return "android-calendars".equals(databaseId);
+        return "providers".equals(databaseId);
     }
 
     private final PeerRegistrationListener mPeerRegistrationListener =

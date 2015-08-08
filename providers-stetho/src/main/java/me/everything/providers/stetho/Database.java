@@ -31,6 +31,8 @@ import java.util.List;
 
 import me.everything.providers.android.calendar.Calendar;
 import me.everything.providers.android.calendar.CalendarProvider;
+import me.everything.providers.android.contacts.Contact;
+import me.everything.providers.android.contacts.ContactsProvider;
 import me.everything.providers.core.Entity;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -110,14 +112,23 @@ public class Database implements ChromeDevtoolsDomain {
 
     private JsonRpcResult executeSQL(String databaseId, String query) {
 
-        CalendarProvider calendarProvider = new CalendarProvider(mContext);
-        List<Calendar> calendars = calendarProvider.getCalendars().getList();
-        String[] columns = Entity.getColumns(Calendar.class);
+        List<? extends Entity> entities = null;
+        String[] columns = new String[0];
 
-        // TODO - currently raw query
+        // TODO - make it better and move to PeerManager
+        if (query.toLowerCase().contains("calendars")) {
+            CalendarProvider calendarProvider = new CalendarProvider(mContext);
+            entities = calendarProvider.getCalendars().getList();
+            columns = Entity.getColumns(Calendar.class);
+        } else if (query.toLowerCase().contains("contacts")) {
+            ContactsProvider contactsProvider = new ContactsProvider(mContext);
+            entities = contactsProvider.getContacts().getList();
+            columns = Entity.getColumns(Contact.class);
+        }
+
         ExecuteSQLResponse response = new ExecuteSQLResponse();
         response.columnNames = Arrays.asList(columns);
-        response.values = flattenRows(columns, calendars);
+        response.values = flattenRows(columns, entities);
         return response;
     }
 
