@@ -309,7 +309,12 @@ And annotate your fields by using next options:
 ### Stetho Extension
 It is possible to present all providers data in Chrome Debug Tools by extending Stetho lib
 
-// TODO
+// TODO - show code
+
+And this is how it looks:
+
+![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers.png)
+
 
 ### Sample App
 
