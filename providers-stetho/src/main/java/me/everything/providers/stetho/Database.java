@@ -41,6 +41,11 @@ import me.everything.providers.android.contacts.Contact;
 import me.everything.providers.android.contacts.ContactsProvider;
 import me.everything.providers.android.dictionary.DictionaryProvider;
 import me.everything.providers.android.dictionary.Word;
+import me.everything.providers.android.media.Audio;
+import me.everything.providers.android.media.File;
+import me.everything.providers.android.media.Image;
+import me.everything.providers.android.media.MediaProvider;
+import me.everything.providers.android.media.Video;
 import me.everything.providers.android.telephony.Carrier;
 import me.everything.providers.android.telephony.Conversation;
 import me.everything.providers.android.telephony.Mms;
@@ -200,6 +205,29 @@ public class Database implements ChromeDevtoolsDomain {
                 DictionaryProvider dictionaryProvider = new DictionaryProvider(mContext);
                 entities = dictionaryProvider.getWords().getList();
                 columns = Entity.getColumns(Word.class);
+            }
+
+            // media
+            else if (query.toLowerCase().contains("files")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getFiles(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(File.class);
+            } else if (query.toLowerCase().contains("images")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getImages(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Image.class);
+            } else if (query.toLowerCase().contains("videos")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getVideos(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Video.class);
+            } else if (query.toLowerCase().contains("audios")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getAudios(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Audio.class);
             }
 
             response.columnNames = Arrays.asList(columns);

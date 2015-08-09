@@ -84,7 +84,7 @@ public class ProvidersPeerManager extends ChromePeerManager {
             case "provider-media-internal":
                 names.add("files");
                 names.add("images");
-                names.add("audio");
+                names.add("audios");
                 names.add("videos");
                 names.add("albums");
                 names.add("genres");
