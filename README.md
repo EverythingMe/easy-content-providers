@@ -67,7 +67,7 @@ dependencies {
 	- Searches
 - Dictionary
 
-#### :small_orange_diamond: Calendars, Events, Instances, Attendees, Reminders
+#### Calendars, Events, Instances, Attendees, Reminders
 
 ``` java
 CalendarProvider calendarProvider = new CalendarProvider(context);
@@ -103,7 +103,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Contacts
+#### Contacts
 
 ``` java
 ContactsProvider contactsProvider = new ContactsProvider(context);
@@ -119,7 +119,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Calls Log
+#### Calls Log
 
 ``` java
 CallsProvider callsProvider = new CallsProvider(context);
@@ -135,7 +135,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Telephony, SMS, MMS, Conversations, Threads, Carriers
+#### Telephony, SMS, MMS, Conversations, Threads, Carriers
 
 ``` java
 TelephonyProvider telephonyProvider = new TelephonyProvider(context);
@@ -163,7 +163,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Media
+#### Media
 
 ``` java
 MediaProvider mediaProvider = new MediaProvider(context);
@@ -200,7 +200,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Browser
+#### Browser 
 
 ``` java
 BrowserProvider browserProvider = new BrowserProvider(context);
@@ -219,7 +219,7 @@ Required permission:
 
 <br>
 
-#### :small_orange_diamond: Dictionary
+#### Dictionary
 
 ``` java
 DictionaryProvider dictionaryProvider = new DictionaryProvider(context);
