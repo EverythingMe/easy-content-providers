@@ -41,10 +41,14 @@ import me.everything.providers.android.contacts.Contact;
 import me.everything.providers.android.contacts.ContactsProvider;
 import me.everything.providers.android.dictionary.DictionaryProvider;
 import me.everything.providers.android.dictionary.Word;
+import me.everything.providers.android.media.Album;
+import me.everything.providers.android.media.Artist;
 import me.everything.providers.android.media.Audio;
 import me.everything.providers.android.media.File;
+import me.everything.providers.android.media.Genre;
 import me.everything.providers.android.media.Image;
 import me.everything.providers.android.media.MediaProvider;
+import me.everything.providers.android.media.Playlist;
 import me.everything.providers.android.media.Video;
 import me.everything.providers.android.telephony.Carrier;
 import me.everything.providers.android.telephony.Conversation;
@@ -228,7 +232,28 @@ public class Database implements ChromeDevtoolsDomain {
                 MediaProvider mediaProvider = new MediaProvider(mContext);
                 entities = mediaProvider.getAudios(MediaProvider.Storage.EXTERNAL).getList();
                 columns = Entity.getColumns(Audio.class);
+            } else if (query.toLowerCase().contains("albums")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getAlbums(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Album.class);
+            } else if (query.toLowerCase().contains("genres")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getGenres(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Genre.class);
+            } else if (query.toLowerCase().contains("playlists")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getPlaylists(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Playlist.class);
+            } else if (query.toLowerCase().contains("artists")) {
+                // TODO - check of external or internal
+                MediaProvider mediaProvider = new MediaProvider(mContext);
+                entities = mediaProvider.getArtists(MediaProvider.Storage.EXTERNAL).getList();
+                columns = Entity.getColumns(Artist.class);
             }
+
 
             response.columnNames = Arrays.asList(columns);
             response.values = flattenRows(columns, entities);

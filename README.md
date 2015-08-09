@@ -58,6 +58,10 @@ dependencies {
 	- Images
 	- Videos
 	- Audios
+	- Albums
+	- Artists
+	- Genres
+	- Playlists
 - Browser 
 	- Bookmarks
 	- Searches
@@ -181,6 +185,18 @@ Required permission:
 
 **Audio**
 - `mediaProvider.getAudios(storage);` - Get all audios
+
+**Albums**
+- `mediaProvider.getAlbums(storage);` - Get all albums
+
+**Artists**
+- `mediaProvider.getArtists(storage);` - Get all artists
+
+**Genres**
+- `mediaProvider.getGenres(storage);` - Get all genres
+
+**Playlists**
+- `mediaProvider.getPlaylists(storage);` - Get all playlists
 
 <br>
 

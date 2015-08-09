@@ -62,6 +62,42 @@ public class MediaProvider extends AbstractProvider {
         }
     }
 
+    public Data<Album> getAlbums(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Album.uriInternal, Album.class);
+            default:
+                return getContentTableData(Album.uriExternal, Album.class);
+        }
+    }
+
+    public Data<Artist> getArtists(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Artist.uriInternal, Artist.class);
+            default:
+                return getContentTableData(Artist.uriExternal, Artist.class);
+        }
+    }
+
+    public Data<Genre> getGenres(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Genre.uriInternal, Genre.class);
+            default:
+                return getContentTableData(Genre.uriExternal, Genre.class);
+        }
+    }
+
+    public Data<Playlist> getPlaylists(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Playlist.uriInternal, Playlist.class);
+            default:
+                return getContentTableData(Playlist.uriExternal, Playlist.class);
+        }
+    }
+
     public enum Storage {
         INTERNAL,
         EXTERNAL
