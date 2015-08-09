@@ -29,10 +29,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.everything.providers.android.browser.Bookmark;
+import me.everything.providers.android.browser.BrowserProvider;
+import me.everything.providers.android.browser.Search;
 import me.everything.providers.android.calendar.Calendar;
 import me.everything.providers.android.calendar.CalendarProvider;
+import me.everything.providers.android.calendar.Event;
+import me.everything.providers.android.calllog.Call;
+import me.everything.providers.android.calllog.CallsProvider;
 import me.everything.providers.android.contacts.Contact;
 import me.everything.providers.android.contacts.ContactsProvider;
+import me.everything.providers.android.dictionary.DictionaryProvider;
+import me.everything.providers.android.dictionary.Word;
+import me.everything.providers.android.telephony.Carrier;
+import me.everything.providers.android.telephony.Conversation;
+import me.everything.providers.android.telephony.Mms;
+import me.everything.providers.android.telephony.Sms;
+import me.everything.providers.android.telephony.TelephonyProvider;
 import me.everything.providers.core.Entity;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -112,23 +125,93 @@ public class Database implements ChromeDevtoolsDomain {
 
     private JsonRpcResult executeSQL(String databaseId, String query) {
 
-        List<? extends Entity> entities = null;
-        String[] columns = new String[0];
-
-        // TODO - make it better and move to PeerManager
-        if (query.toLowerCase().contains("calendars")) {
-            CalendarProvider calendarProvider = new CalendarProvider(mContext);
-            entities = calendarProvider.getCalendars().getList();
-            columns = Entity.getColumns(Calendar.class);
-        } else if (query.toLowerCase().contains("contacts")) {
-            ContactsProvider contactsProvider = new ContactsProvider(mContext);
-            entities = contactsProvider.getContacts().getList();
-            columns = Entity.getColumns(Contact.class);
-        }
 
         ExecuteSQLResponse response = new ExecuteSQLResponse();
-        response.columnNames = Arrays.asList(columns);
-        response.values = flattenRows(columns, entities);
+
+        try {
+
+            List<? extends Entity> entities = null;
+            String[] columns = new String[0];
+
+            // TODO - parse query and act accordingly
+            // TODO - make it better and move to PeerManager
+
+            if (query.toLowerCase().contains("calendars")) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                entities = calendarProvider.getCalendars().getList();
+                columns = Entity.getColumns(Calendar.class);
+            } else if (query.toLowerCase().contains("events")) {
+                // TODO - temp only for testing
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                entities = calendarProvider.getEvents(1).getList();
+                columns = Entity.getColumns(Event.class);
+            }
+
+            // contacts
+            else if (query.toLowerCase().contains("contacts")) {
+                ContactsProvider contactsProvider = new ContactsProvider(mContext);
+                entities = contactsProvider.getContacts().getList();
+                columns = Entity.getColumns(Contact.class);
+            }
+
+            // call log
+            else if (query.toLowerCase().contains("calls")) {
+                CallsProvider callsProvider = new CallsProvider(mContext);
+                entities = callsProvider.getCalls().getList();
+                columns = Entity.getColumns(Call.class);
+            }
+
+            // telephony
+            else if (query.toLowerCase().contains("sms")) {
+                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
+                entities = telephonyProvider.getSms(TelephonyProvider.Filter.ALL).getList();
+                columns = Entity.getColumns(Sms.class);
+            } else if (query.toLowerCase().contains("mms")) {
+                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
+                entities = telephonyProvider.getMms(TelephonyProvider.Filter.ALL).getList();
+                columns = Entity.getColumns(Mms.class);
+            } else if (query.toLowerCase().contains("conversations")) {
+                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
+                entities = telephonyProvider.getConversations().getList();
+                columns = Entity.getColumns(Conversation.class);
+            } else if (query.toLowerCase().contains("threads")) {
+                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
+                entities = telephonyProvider.getThreads().getList();
+                columns = Entity.getColumns(me.everything.providers.android.telephony.Thread.class);
+            } else if (query.toLowerCase().contains("carriers")) {
+                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
+                entities = telephonyProvider.getCarriers().getList();
+                columns = Entity.getColumns(Carrier.class);
+            }
+
+            // browser
+            else if (query.toLowerCase().contains("bookmarks")) {
+                BrowserProvider browserProvider = new BrowserProvider(mContext);
+                entities = browserProvider.getBookmarks().getList();
+                columns = Entity.getColumns(Bookmark.class);
+            } else if (query.toLowerCase().contains("searches")) {
+                BrowserProvider browserProvider = new BrowserProvider(mContext);
+                entities = browserProvider.getSearches().getList();
+                columns = Entity.getColumns(Search.class);
+            }
+
+            // dictionary
+            else if (query.toLowerCase().contains("words")) {
+                DictionaryProvider dictionaryProvider = new DictionaryProvider(mContext);
+                entities = dictionaryProvider.getWords().getList();
+                columns = Entity.getColumns(Word.class);
+            }
+
+            response.columnNames = Arrays.asList(columns);
+            response.values = flattenRows(columns, entities);
+
+        } catch (Exception e) {
+            Error error = new Error();
+            error.message = e.getMessage();
+            error.code = 8000;
+            response.sqlError = error;
+        }
+
         return response;
     }
 
