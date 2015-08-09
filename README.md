@@ -53,6 +53,11 @@ dependencies {
 	- Conversations
 	- Threads
 	- Carriers
+- Media
+	- Files
+	- Images
+	- Videos
+	- Audios
 - Browser 
 	- Bookmarks
 	- Searches
@@ -151,6 +156,31 @@ Required permission:
 
 **Carrier**
 - `telephonyProvider.getCarriers();` - Get all carriers
+
+<br>
+
+#### :small_orange_diamond: Media
+
+``` java
+MediaProvider mediaProvider = new MediaProvider(context);
+```
+
+Required permission:
+``` xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
+**File**
+- `mediaProvider.getFiles(storage);` - Get all files
+
+**Image**
+- `mediaProvider.getImages(storage);` - Get all images
+
+**Video**
+- `mediaProvider.getVideos(storage);` - Get all videos
+
+**Audio**
+- `mediaProvider.getAudios(storage);` - Get all audios
 
 <br>
 
