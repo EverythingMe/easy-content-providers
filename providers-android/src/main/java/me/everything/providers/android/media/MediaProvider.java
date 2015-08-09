@@ -29,6 +29,39 @@ public class MediaProvider extends AbstractProvider {
         }
     }
 
+    public Data<Image> getImages(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Image.uriInternal, Image.class);
+            default:
+                return getContentTableData(Image.uriExternal, null, null,
+                        ORDER_BY_COLUMN + " DESC" + " LIMIT " + LIMIT,
+                        Image.class);
+        }
+    }
+
+    public Data<Video> getVideos(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Video.uriInternal, Video.class);
+            default:
+                return getContentTableData(Video.uriExternal, null, null,
+                        ORDER_BY_COLUMN + " DESC" + " LIMIT " + LIMIT,
+                        Video.class);
+        }
+    }
+
+    public Data<Audio> getAudios(Storage storage) {
+        switch (storage) {
+            case INTERNAL:
+                return getContentTableData(Audio.uriInternal, Audio.class);
+            default:
+                return getContentTableData(Audio.uriExternal, null, null,
+                        ORDER_BY_COLUMN + " DESC" + " LIMIT " + LIMIT,
+                        Audio.class);
+        }
+    }
+
     public enum Storage {
         INTERNAL,
         EXTERNAL
