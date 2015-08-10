@@ -23,7 +23,16 @@ public class BaseFragment extends Fragment {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.main_fragment_container, fragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+        } catch (Exception e) {
+        }
+    }
+
+    protected void setFragment(Class<? extends Fragment> fragmentCls) {
+        try {
+            Fragment fragment = fragmentCls.newInstance();
+            setFragment(fragment);
         } catch (Exception e) {
         }
     }
