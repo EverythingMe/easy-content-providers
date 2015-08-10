@@ -5,7 +5,8 @@ import android.widget.TextView;
 import me.everything.providers.android.telephony.Conversation;
 import me.everything.providers.android.telephony.TelephonyProvider;
 import me.everything.providers.core.Data;
-import me.everything.providers.sample.GetCursorTask;
+import me.everything.providers.sample.base.GetCursorTask;
+import me.everything.providers.sample.base.RecycleViewCursorFragment;
 
 /**
  * Created by sromku

@@ -6,7 +6,8 @@ import android.widget.TextView;
 import me.everything.providers.android.calllog.Call;
 import me.everything.providers.android.calllog.CallsProvider;
 import me.everything.providers.core.Data;
-import me.everything.providers.sample.GetCursorTask;
+import me.everything.providers.sample.base.GetCursorTask;
+import me.everything.providers.sample.base.RecycleViewCursorFragment;
 
 
 /**

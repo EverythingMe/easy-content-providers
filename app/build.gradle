@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile project(':providers-core')
     compile project(':providers-android')
+    compile project(':providers-stetho')
 }

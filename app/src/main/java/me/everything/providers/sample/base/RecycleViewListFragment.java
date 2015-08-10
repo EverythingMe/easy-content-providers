@@ -1,4 +1,4 @@
-package me.everything.providers.sample.fragments;
+package me.everything.providers.sample.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.everything.providers.core.Entity;
-import me.everything.providers.sample.GetEntitiesTask;
 import me.everything.providers.sample.R;
 
 /**
@@ -37,8 +36,8 @@ public abstract class RecycleViewListFragment<T extends Entity> extends BaseFrag
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recycle_view_fragment, container, false);
-        setToolbar(view, getTitle());
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        setToolbarTitle(getTitle());
 
         // set view + adapter
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);

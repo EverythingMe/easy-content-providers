@@ -1,4 +1,4 @@
-package me.everything.providers.sample;
+package me.everything.providers.sample.base;
 
 import android.os.AsyncTask;
 

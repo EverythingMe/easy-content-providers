@@ -16,6 +16,7 @@ import me.everything.providers.android.contacts.Contact;
 import me.everything.providers.android.contacts.ContactsProvider;
 import me.everything.providers.core.Data;
 import me.everything.providers.sample.R;
+import me.everything.providers.sample.base.BaseFragment;
 
 /**
  * Created by sromku
@@ -28,8 +29,8 @@ public class ContactsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_fragment, container, false);
-        setToolbar(view, "Contacts");
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        setToolbarTitle("Contacts");
 
         mListView = (ListView) view.findViewById(R.id.list);
 

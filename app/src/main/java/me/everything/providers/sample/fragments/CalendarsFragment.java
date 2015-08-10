@@ -5,7 +5,8 @@ import android.widget.TextView;
 import me.everything.providers.android.calendar.Calendar;
 import me.everything.providers.android.calendar.CalendarProvider;
 import me.everything.providers.core.Data;
-import me.everything.providers.sample.GetEntitiesTask;
+import me.everything.providers.sample.base.GetEntitiesTask;
+import me.everything.providers.sample.base.RecycleViewListFragment;
 
 public class CalendarsFragment extends RecycleViewListFragment<Calendar> {
 

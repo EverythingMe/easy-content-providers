@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.everything.providers.sample.R;
+import me.everything.providers.sample.base.BaseFragment;
 
 public class HomeFragment extends BaseFragment {
 
@@ -18,8 +19,8 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
-        setToolbar(view, "Home");
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        setToolbarTitle("Home");
         return view;
     }
 
