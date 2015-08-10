@@ -24,52 +24,58 @@ public class HomeFragment extends BaseFragment {
     private static final Option[] options = new Option[] {
             new Option("Calendars", null),
             new Option("Calendars", CalendarsFragment.class),
-            new Option("Events", CalendarsFragment.class),
-            new Option("Instances", CalendarsFragment.class),
-            new Option("Reminders", CalendarsFragment.class),
-            new Option("Attendees", CalendarsFragment.class),
+            new Option("Events", CalendarsFragment.class, CalendarsFragment.MSG_EVENTS),
+            new Option("Instances", CalendarsFragment.class, CalendarsFragment.MSG_INSTANCES),
+            new Option("Reminders", CalendarsFragment.class, CalendarsFragment.MSG_REMINDERS),
+            new Option("Attendees", CalendarsFragment.class, CalendarsFragment.MSG_ATTENDEES),
             new Option("Contacts", null),
             new Option("Contacts", ContactsFragment.class),
             new Option("Call Logs", null),
             new Option("Calls", CallsFragment.class),
             new Option("Telephony", null),
-            new Option("SMS(es)", HomeFragment.class),
-            new Option("MMS(es)", HomeFragment.class),
-            new Option("Conversations", HomeFragment.class),
-            new Option("Threads", HomeFragment.class),
-            new Option("Carriers", HomeFragment.class),
+            new Option("SMS(es)", SmsesFragment.class),
+            new Option("MMS(es)", MmsesFragment.class),
+            new Option("Conversations", ConversationsFragment.class),
+            new Option("Threads", ThreadsFragment.class),
+            new Option("Carriers", CarriersFragment.class),
             new Option("Browser", null),
-            new Option("Bookmarks", HomeFragment.class),
-            new Option("Searches", HomeFragment.class),
+            new Option("Bookmarks", BookmarksFragment.class),
+            new Option("Searches", SearchesFragment.class),
             new Option("Dictionary", null),
-            new Option("Words", HomeFragment.class),
+            new Option("Words", WordsFragment.class),
             new Option("Media External", null),
-            new Option("Files", HomeFragment.class),
-            new Option("Images", HomeFragment.class),
-            new Option("Videos", HomeFragment.class),
-            new Option("Audios", HomeFragment.class),
-            new Option("Albums", HomeFragment.class),
-            new Option("Artists", HomeFragment.class),
-            new Option("Genres", HomeFragment.class),
-            new Option("Playlists", HomeFragment.class),
+            new Option("Files", FilesFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Images", ImagesFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Videos", VideosFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Audios", AudiosFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Albums", AlbumsFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Artists", ArtistsFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Genres", GenresFragment.class, MediaFragment.MEDIA_EXTERNAL),
+            new Option("Playlists", PlaylistsFragment.class, MediaFragment.MEDIA_EXTERNAL),
             new Option("Media Internal", null),
-            new Option("Files", HomeFragment.class),
-            new Option("Images", HomeFragment.class),
-            new Option("Videos", HomeFragment.class),
-            new Option("Audios", HomeFragment.class),
-            new Option("Albums", HomeFragment.class),
-            new Option("Artists", HomeFragment.class),
-            new Option("Genres", HomeFragment.class),
-            new Option("Playlists", HomeFragment.class)
+            new Option("Files", FilesFragment.class),
+            new Option("Images", ImagesFragment.class),
+            new Option("Videos", VideosFragment.class),
+            new Option("Audios", AudiosFragment.class),
+            new Option("Albums", AlbumsFragment.class),
+            new Option("Artists", ArtistsFragment.class),
+            new Option("Genres", GenresFragment.class),
+            new Option("Playlists", PlaylistsFragment.class)
     };
 
     private final static class Option {
         final String name;
         final Class<? extends Fragment> fragment;
+        int param;
 
         Option(String name, Class<? extends Fragment> fragment) {
             this.name = name;
             this.fragment = fragment;
+        }
+
+        Option(String name, Class<? extends Fragment> fragment, int param) {
+            this(name, fragment);
+            this.param = param;
         }
     }
 
@@ -77,8 +83,9 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Class<? extends Fragment> fragment = options[position].fragment;
-            setFragment(fragment);
+            Option option = options[position];
+            Class<? extends Fragment> fragment = option.fragment;
+            setFragment(fragment, option.param);
         }
     }
 

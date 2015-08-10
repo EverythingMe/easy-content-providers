@@ -10,6 +10,11 @@ import me.everything.providers.sample.base.RecycleViewListFragment;
 
 public class CalendarsFragment extends RecycleViewListFragment<Calendar> {
 
+    public final static int MSG_EVENTS = 1;
+    public final static int MSG_INSTANCES = 2;
+    public final static int MSG_REMINDERS = 3;
+    public final static int MSG_ATTENDEES = 4;
+
     @Override
     protected String getTitle() {
         return "Calendar";

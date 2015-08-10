@@ -1,6 +1,7 @@
 package me.everything.providers.sample.base;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,9 +30,14 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    protected void setFragment(Class<? extends Fragment> fragmentCls) {
+    protected void setFragment(Class<? extends Fragment> fragmentCls, Integer param) {
         try {
             Fragment fragment = fragmentCls.newInstance();
+            if (param != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("param", param);
+                fragment.setArguments(bundle);
+            }
             setFragment(fragment);
         } catch (Exception e) {
         }

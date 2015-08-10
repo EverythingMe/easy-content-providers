@@ -21,7 +21,7 @@ public class ConversationsFragment extends RecycleViewCursorFragment<Conversatio
     @Override
     protected void bindEntity(Conversation conversation, TextView title, TextView details) {
         title.setText(conversation.snippet);
-        details.setText(conversation.messageCount + "");
+        details.setText("Num of messages: " + conversation.messageCount);
     }
 
     @Override
