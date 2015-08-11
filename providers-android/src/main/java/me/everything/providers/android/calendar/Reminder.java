@@ -10,7 +10,6 @@ import me.everything.providers.core.Entity;
 import me.everything.providers.core.EnumInt;
 import me.everything.providers.core.FieldMapping;
 import me.everything.providers.core.IgnoreMapping;
-import me.everything.providers.core.TableMapping;
 
 /**
  * Reminder entity
@@ -20,7 +19,6 @@ import me.everything.providers.core.TableMapping;
  *      ://developer.android.com/reference/android/provider/CalendarContract.
  *      Reminders.html
  */
-@TableMapping(tableName = "reminder")
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class Reminder extends Entity {
 

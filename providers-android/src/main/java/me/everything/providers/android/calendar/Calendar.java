@@ -9,7 +9,6 @@ import android.provider.CalendarContract.Calendars;
 import me.everything.providers.core.Entity;
 import me.everything.providers.core.FieldMapping;
 import me.everything.providers.core.IgnoreMapping;
-import me.everything.providers.core.TableMapping;
 
 /**
  * Calendar entity
@@ -17,7 +16,6 @@ import me.everything.providers.core.TableMapping;
  * @author sromku
  * // @see http://developer.android.com/reference/android/provider/CalendarContract.Calendars.html
  */
-@TableMapping(tableName = "calendar")
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class Calendar extends Entity {
 

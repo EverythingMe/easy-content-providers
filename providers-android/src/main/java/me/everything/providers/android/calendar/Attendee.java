@@ -9,7 +9,6 @@ import android.provider.CalendarContract.Attendees;
 import me.everything.providers.core.Entity;
 import me.everything.providers.core.FieldMapping;
 import me.everything.providers.core.IgnoreMapping;
-import me.everything.providers.core.TableMapping;
 
 /**
  * Attendee entity
@@ -19,7 +18,6 @@ import me.everything.providers.core.TableMapping;
  *      ://developer.android.com/reference/android/provider/CalendarContract.
  *      Attendees.html
  */
-@TableMapping(tableName = "attendee")
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class Attendee extends Entity {
 
