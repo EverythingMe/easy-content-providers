@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:authorities="providers-sample"
+            android:name=".custom.PostsContentProvider" />
+
     </application>
 
 </manifest>

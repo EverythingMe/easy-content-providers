@@ -12,7 +12,7 @@ public class Post extends Entity  {
     public static Uri uri = PostsContentProvider.POSTS_URI;
 
     @FieldMapping(columnName = PostsTable.COLUMN_ID, physicalType = FieldMapping.PhysicalType.Int)
-    public int _id;
+    public int id;
 
     @FieldMapping(columnName = PostsTable.COLUMN_TITLE, physicalType = FieldMapping.PhysicalType.String)
     public String title;

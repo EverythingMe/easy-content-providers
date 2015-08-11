@@ -56,7 +56,9 @@ public class HomeFragment extends BaseFragment {
             new Option("Albums", AlbumsFragment.class),
             new Option("Artists", ArtistsFragment.class),
             new Option("Genres", GenresFragment.class),
-            new Option("Playlists", PlaylistsFragment.class)
+            new Option("Playlists", PlaylistsFragment.class),
+            new Option("Custom Made", null),
+            new Option("Posts", CustomPostsFragment.class),
     };
 
     private final static class Option {

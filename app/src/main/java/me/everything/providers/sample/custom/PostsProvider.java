@@ -7,7 +7,7 @@ import me.everything.providers.core.Data;
 
 public class PostsProvider extends AbstractProvider {
 
-    protected PostsProvider(Context context) {
+    public PostsProvider(Context context) {
         super(context);
     }
 
