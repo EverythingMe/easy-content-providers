@@ -22,12 +22,6 @@ import me.everything.providers.sample.base.BaseFragment;
 public class HomeFragment extends BaseFragment {
 
     private static final Option[] options = new Option[] {
-            new Option("Calendars", null),
-            new Option("Calendars", CalendarsFragment.class),
-            new Option("Events", CalendarsFragment.class, CalendarsFragment.MSG_EVENTS),
-            new Option("Instances", CalendarsFragment.class, CalendarsFragment.MSG_INSTANCES),
-            new Option("Reminders", CalendarsFragment.class, CalendarsFragment.MSG_REMINDERS),
-            new Option("Attendees", CalendarsFragment.class, CalendarsFragment.MSG_ATTENDEES),
             new Option("Contacts", null),
             new Option("Contacts", ContactsFragment.class),
             new Option("Call Logs", null),
@@ -38,6 +32,8 @@ public class HomeFragment extends BaseFragment {
             new Option("Conversations", ConversationsFragment.class),
             new Option("Threads", ThreadsFragment.class),
             new Option("Carriers", CarriersFragment.class),
+            new Option("Calendars", null),
+            new Option("Calendars, Events, Instances, Reminders, Attendees", CalendarsFragment.class),
             new Option("Browser", null),
             new Option("Bookmarks", BookmarksFragment.class),
             new Option("Searches", SearchesFragment.class),

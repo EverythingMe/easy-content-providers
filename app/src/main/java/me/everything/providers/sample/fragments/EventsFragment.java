@@ -19,6 +19,7 @@ public class EventsFragment extends RecycleViewCursorFragment<Event> {
 
     private long mCalendarId;
     private String[] mColumns = new String[] {
+            CalendarContract.Events._ID,
             CalendarContract.Events.TITLE,
             CalendarContract.Events.DESCRIPTION
     };
@@ -51,6 +52,32 @@ public class EventsFragment extends RecycleViewCursorFragment<Event> {
     @Override
     protected String[] getProjectionColumns() {
         return mColumns;
+    }
+
+
+    @Override
+    protected CharSequence[] getDialogItems() {
+        CharSequence[] items = new CharSequence[] {
+                "Show Event Reminders",
+                "Show Event Attendees",
+                "Show Event Instances"
+        };
+        return items;
+    }
+
+    @Override
+    protected void onDialogItemSelected(Event entity, int which) {
+        switch (which) {
+            case 0: // "Show Event Reminders"
+                setFragment(RemindersFragment.newInstance(entity.id));
+                break;
+            case 1: // "Show Event Attendees"
+                setFragment(AttendeesFragment.newInstance(entity.id));
+                break;
+            case 2: // "Show Event Instances"
+                setFragment(InstancesFragment.newInstance(entity.id));
+                break;
+        }
     }
 
     @Override

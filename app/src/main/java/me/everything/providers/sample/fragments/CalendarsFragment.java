@@ -10,11 +10,6 @@ import me.everything.providers.sample.base.RecycleViewListFragment;
 
 public class CalendarsFragment extends RecycleViewListFragment<Calendar> {
 
-    public final static int MSG_EVENTS = 1;
-    public final static int MSG_INSTANCES = 2;
-    public final static int MSG_REMINDERS = 3;
-    public final static int MSG_ATTENDEES = 4;
-
     @Override
     protected String getTitle() {
         return "Calendar";
@@ -38,8 +33,19 @@ public class CalendarsFragment extends RecycleViewListFragment<Calendar> {
     }
 
     @Override
-    protected void onSelected(Calendar entity) {
-        setFragment(EventsFragment.newInstance(entity.id));
+    protected CharSequence[] getDialogItems() {
+        CharSequence[] items = new CharSequence[] {
+                "Show Calendar Events"
+        };
+        return items;
     }
 
+    @Override
+    protected void onDialogItemSelected(Calendar entity, int which) {
+        switch (which) {
+            case 0: // "Show Calendar Events"
+                setFragment(EventsFragment.newInstance(entity.id));
+                break;
+        }
+    }
 }

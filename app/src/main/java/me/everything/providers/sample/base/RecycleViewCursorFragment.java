@@ -1,8 +1,10 @@
 package me.everything.providers.sample.base;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -72,7 +74,25 @@ public abstract class RecycleViewCursorFragment<T extends Entity> extends BaseFr
 
     protected abstract GetCursorTask.DataFetcher<T> getFetcher();
 
-    protected void onSelected(T entity) {
+    protected void onSelected(final T entity) {
+        CharSequence[] dialogItems = getDialogItems();
+        if (dialogItems != null) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setItems(dialogItems, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    onDialogItemSelected(entity, which);
+                }
+            });
+            dialog.show();
+        }
+    }
+
+    protected CharSequence[] getDialogItems() {
+        return null;
+    }
+
+    protected void onDialogItemSelected(T entity, int which) {
     }
 
     protected String[] getProjectionColumns() {
