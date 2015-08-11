@@ -7,6 +7,7 @@ import android.provider.BaseColumns;
 import android.provider.CalendarContract.Reminders;
 
 import me.everything.providers.core.Entity;
+import me.everything.providers.core.EnumInt;
 import me.everything.providers.core.FieldMapping;
 import me.everything.providers.core.IgnoreMapping;
 import me.everything.providers.core.TableMapping;
@@ -35,7 +36,30 @@ public class Reminder extends Entity {
     @FieldMapping(columnName = Reminders.MINUTES, physicalType = FieldMapping.PhysicalType.Int)
     public int minutes;
 
-    @FieldMapping(columnName = Reminders.METHOD, physicalType = FieldMapping.PhysicalType.Int)
-    public int method;
+    @FieldMapping(columnName = Reminders.METHOD, physicalType = FieldMapping.PhysicalType.Int, logicalType = FieldMapping.LogicalType.EnumInt)
+    public MethodType method;
+
+    public enum MethodType implements EnumInt {
+        DEFAULT(0),
+        ALERT(1),
+        EMAIL(2),
+        SMS(3),
+        ALARM(4);
+
+        int val;
+
+        MethodType(int val) {
+            this.val = val;
+        }
+
+        public static MethodType fromVal(int val) {
+            for (MethodType methodType : values()) {
+                if (methodType.val == val) {
+                    return methodType;
+                }
+            }
+            return DEFAULT;
+        }
+    }
 
 }
