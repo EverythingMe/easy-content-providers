@@ -19,6 +19,8 @@ public class Contact extends Entity {
 
     @IgnoreMapping
     public static Uri uri = Phone.CONTENT_URI;
+
+    @IgnoreMapping
     public static Uri uriEmail = Email.CONTENT_URI;
 
     @FieldMapping(columnName = BaseColumns._ID, physicalType = FieldMapping.PhysicalType.Long)
