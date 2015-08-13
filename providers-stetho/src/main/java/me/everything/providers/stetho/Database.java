@@ -29,32 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.everything.providers.android.browser.Bookmark;
-import me.everything.providers.android.browser.BrowserProvider;
-import me.everything.providers.android.browser.Search;
-import me.everything.providers.android.calendar.Calendar;
-import me.everything.providers.android.calendar.CalendarProvider;
-import me.everything.providers.android.calendar.Event;
-import me.everything.providers.android.calllog.Call;
-import me.everything.providers.android.calllog.CallsProvider;
-import me.everything.providers.android.contacts.Contact;
-import me.everything.providers.android.contacts.ContactsProvider;
-import me.everything.providers.android.dictionary.DictionaryProvider;
-import me.everything.providers.android.dictionary.Word;
-import me.everything.providers.android.media.Album;
-import me.everything.providers.android.media.Artist;
-import me.everything.providers.android.media.Audio;
-import me.everything.providers.android.media.File;
-import me.everything.providers.android.media.Genre;
-import me.everything.providers.android.media.Image;
-import me.everything.providers.android.media.MediaProvider;
-import me.everything.providers.android.media.Playlist;
-import me.everything.providers.android.media.Video;
-import me.everything.providers.android.telephony.Carrier;
-import me.everything.providers.android.telephony.Conversation;
-import me.everything.providers.android.telephony.Mms;
-import me.everything.providers.android.telephony.Sms;
-import me.everything.providers.android.telephony.TelephonyProvider;
 import me.everything.providers.core.Entity;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -65,11 +39,11 @@ public class Database implements ChromeDevtoolsDomain {
     private final ObjectMapper mObjectMapper;
     private final ModuleDatabaseDelegator mModuleDatabaseDelegator;
 
-    public Database(Context context) {
+    public Database(Context context, ProvidersStetho providersStetho) {
         mContext = context;
         mModuleDatabaseDelegator = new ModuleDatabaseDelegator(mContext);
         mObjectMapper = new ObjectMapper();
-        mProvidersPeerManager = new ProvidersPeerManager(mContext);
+        mProvidersPeerManager = new ProvidersPeerManager(mContext, providersStetho);
     }
 
     @ChromeDevtoolsMethod
@@ -134,126 +108,15 @@ public class Database implements ChromeDevtoolsDomain {
 
     private JsonRpcResult executeSQL(String databaseId, String query) {
 
-
         ExecuteSQLResponse response = new ExecuteSQLResponse();
 
         try {
 
-            List<? extends Entity> entities = null;
-            String[] columns = new String[0];
+            QueryRelover queryRelover = new QueryRelover(query);
+            String tableName = queryRelover.tableName;
 
-            // TODO - parse query and act accordingly
-            // TODO - make it better and move to PeerManager
-
-            if (query.toLowerCase().contains("calendars")) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                entities = calendarProvider.getCalendars().getList();
-                columns = Entity.getColumns(Calendar.class);
-            } else if (query.toLowerCase().contains("events")) {
-                // TODO - temp only for testing
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                entities = calendarProvider.getEvents(1).getList();
-                columns = Entity.getColumns(Event.class);
-            }
-
-            // contacts
-            else if (query.toLowerCase().contains("contacts")) {
-                ContactsProvider contactsProvider = new ContactsProvider(mContext);
-                entities = contactsProvider.getContacts().getList();
-                columns = Entity.getColumns(Contact.class);
-            }
-
-            // call log
-            else if (query.toLowerCase().contains("calls")) {
-                CallsProvider callsProvider = new CallsProvider(mContext);
-                entities = callsProvider.getCalls().getList();
-                columns = Entity.getColumns(Call.class);
-            }
-
-            // telephony
-            else if (query.toLowerCase().contains("sms")) {
-                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
-                entities = telephonyProvider.getSms(TelephonyProvider.Filter.ALL).getList();
-                columns = Entity.getColumns(Sms.class);
-            } else if (query.toLowerCase().contains("mms")) {
-                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
-                entities = telephonyProvider.getMms(TelephonyProvider.Filter.ALL).getList();
-                columns = Entity.getColumns(Mms.class);
-            } else if (query.toLowerCase().contains("conversations")) {
-                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
-                entities = telephonyProvider.getConversations().getList();
-                columns = Entity.getColumns(Conversation.class);
-            } else if (query.toLowerCase().contains("threads")) {
-                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
-                entities = telephonyProvider.getThreads().getList();
-                columns = Entity.getColumns(me.everything.providers.android.telephony.Thread.class);
-            } else if (query.toLowerCase().contains("carriers")) {
-                TelephonyProvider telephonyProvider = new TelephonyProvider(mContext);
-                entities = telephonyProvider.getCarriers().getList();
-                columns = Entity.getColumns(Carrier.class);
-            }
-
-            // browser
-            else if (query.toLowerCase().contains("bookmarks")) {
-                BrowserProvider browserProvider = new BrowserProvider(mContext);
-                entities = browserProvider.getBookmarks().getList();
-                columns = Entity.getColumns(Bookmark.class);
-            } else if (query.toLowerCase().contains("searches")) {
-                BrowserProvider browserProvider = new BrowserProvider(mContext);
-                entities = browserProvider.getSearches().getList();
-                columns = Entity.getColumns(Search.class);
-            }
-
-            // dictionary
-            else if (query.toLowerCase().contains("words")) {
-                DictionaryProvider dictionaryProvider = new DictionaryProvider(mContext);
-                entities = dictionaryProvider.getWords().getList();
-                columns = Entity.getColumns(Word.class);
-            }
-
-            // media
-            else if (query.toLowerCase().contains("files")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getFiles(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(File.class);
-            } else if (query.toLowerCase().contains("images")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getImages(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Image.class);
-            } else if (query.toLowerCase().contains("videos")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getVideos(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Video.class);
-            } else if (query.toLowerCase().contains("audios")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getAudios(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Audio.class);
-            } else if (query.toLowerCase().contains("albums")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getAlbums(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Album.class);
-            } else if (query.toLowerCase().contains("genres")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getGenres(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Genre.class);
-            } else if (query.toLowerCase().contains("playlists")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getPlaylists(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Playlist.class);
-            } else if (query.toLowerCase().contains("artists")) {
-                // TODO - check of external or internal
-                MediaProvider mediaProvider = new MediaProvider(mContext);
-                entities = mediaProvider.getArtists(MediaProvider.Storage.EXTERNAL).getList();
-                columns = Entity.getColumns(Artist.class);
-            }
-
+            String[] columns = mProvidersPeerManager.getColumns(databaseId, tableName);
+            List<? extends Entity> entities = mProvidersPeerManager.getEntites(databaseId, tableName, query);
 
             response.columnNames = Arrays.asList(columns);
             response.values = flattenRows(columns, entities);
@@ -274,6 +137,16 @@ public class Database implements ChromeDevtoolsDomain {
             rows.addAll(Entity.getFlattenedValues(columns, entity));
         }
         return rows;
+    }
+
+    private static class QueryRelover {
+
+        String tableName;
+
+        public QueryRelover(String query) {
+            query = query.toLowerCase();
+            tableName = query.split("\"")[1];
+        }
     }
 
     private static class GetDatabaseTableNamesRequest {
@@ -305,12 +178,12 @@ public class Database implements ChromeDevtoolsDomain {
         public Error sqlError;
     }
 
-    public static class AddDatabaseEvent {
+    private static class AddDatabaseEvent {
         @JsonProperty(required = true)
         public DatabaseObject database;
     }
 
-    public static class DatabaseObject {
+    private static class DatabaseObject {
         @JsonProperty(required = true)
         public String id;
 
@@ -324,7 +197,7 @@ public class Database implements ChromeDevtoolsDomain {
         public String version;
     }
 
-    public static class Error {
+    private static class Error {
         @JsonProperty(required = true)
         public String message;
 

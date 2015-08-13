@@ -7,35 +7,29 @@ import com.facebook.stetho.inspector.helper.PeerRegistrationListener;
 import com.facebook.stetho.inspector.jsonrpc.JsonRpcPeer;
 import com.facebook.stetho.inspector.protocol.module.Database;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import me.everything.providers.core.Entity;
 
 /**
  * Created by sromku
  */
 public class ProvidersPeerManager extends ChromePeerManager {
 
-    private Context mContext;
-    private final static String[] databases = new String[] {
-            "provider-calendars",
-            "provider-contacts",
-            "provider-calls",
-            "provider-telephony",
-            "provider-bookmarks",
-            "provider-dictionary",
-            "provider-media-external",
-            "provider-media-internal",
-    };
+    private final Context mContext;
+    private final ProvidersStetho mProvidersStetho;
 
-    public ProvidersPeerManager(Context context) {
+    public ProvidersPeerManager(Context context, ProvidersStetho providersStetho) {
         mContext = context;
+        mProvidersStetho = providersStetho;
         setListener(mPeerRegistrationListener);
     }
 
     private void bootstrapNewPeer(JsonRpcPeer peer) {
 
-        for (String databaseName : databases) {
+        List<String> categories = mProvidersStetho.getCategories();
+        for (String category : categories) {
+            String databaseName = category;
             Database.DatabaseObject databaseParams = new Database.DatabaseObject();
             databaseParams.id = databaseName;
             databaseParams.name = databaseName;
@@ -49,56 +43,12 @@ public class ProvidersPeerManager extends ChromePeerManager {
     }
 
     public List<String> getDatabaseTableNames(String databaseId) {
-
-        List<String> names = new ArrayList<String>();
-
-        switch (databaseId) {
-            case "provider-calendars":
-                names.add("calendars");
-                names.add("events");
-                names.add("instances");
-                names.add("reminders");
-                names.add("attendees");
-                break;
-            case "provider-contacts":
-                names.add("contacts");
-                break;
-            case "provider-calls":
-                names.add("calls");
-                break;
-            case "provider-telephony":
-                names.add("sms");
-                names.add("mms");
-                names.add("conversations");
-                names.add("threads");
-                names.add("carriers");
-                break;
-            case "provider-bookmarks":
-                names.add("bookmarks");
-                names.add("searches");
-                break;
-            case "provider-dictionary":
-                names.add("words");
-                break;
-            case "provider-media-external":
-            case "provider-media-internal":
-                names.add("files");
-                names.add("images");
-                names.add("audios");
-                names.add("videos");
-                names.add("albums");
-                names.add("genres");
-                names.add("playlists");
-                names.add("artists");
-                break;
-        }
-
+        List<String> names = mProvidersStetho.getProviders(databaseId);
         return names;
     }
 
     public boolean contains(String databaseId) {
-        List<String> dbs = Arrays.asList(databases);
-        return dbs.contains(databaseId);
+        return mProvidersStetho.hasCategory(databaseId);
     }
 
     private final PeerRegistrationListener mPeerRegistrationListener =
@@ -113,4 +63,11 @@ public class ProvidersPeerManager extends ChromePeerManager {
                 }
             };
 
+    public String[] getColumns(String databaseId, String tableName) {
+        return mProvidersStetho.getColumns(databaseId, tableName);
+    }
+
+    public List<? extends Entity> getEntites(String databaseId, String tableName, String query) {
+        return mProvidersStetho.getEntites(databaseId, tableName, query);
+    }
 }

@@ -11,7 +11,9 @@ import com.facebook.stetho.inspector.protocol.module.Database;
 import org.json.JSONObject;
 
 /**
- * Created by sromku
+ * Since the implementation made by Stetho is really coupled to protocol, I had to make some
+ * hacky override of Database class and methods, but also to keep the basic Stetho Database class working
+ * as expected. This class will be delegator of all events to the original Stetho Database class.
  */
 public class ModuleDatabaseDelegator {
 
