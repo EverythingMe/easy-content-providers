@@ -2,6 +2,8 @@ package me.everything.providers.stetho;
 
 import android.content.Context;
 
+import com.facebook.stetho.InspectorModulesProvider;
+import com.facebook.stetho.Stetho;
 import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
 
 import java.lang.reflect.ParameterizedType;
@@ -105,6 +107,17 @@ public class ProvidersStetho {
             return data.getList();
         }
         return null;
+    }
+
+    public InspectorModulesProvider defaultInspectorModulesProvider() {
+        return new InspectorModulesProvider() {
+            @Override
+            public Iterable<ChromeDevtoolsDomain> get() {
+                ArrayList plugins = (ArrayList) Stetho.defaultInspectorModulesProvider(mContext).get();
+                plugins.add(getChromeDevtoolsDomain());
+                return plugins;
+            }
+        };
     }
 
     public interface QueryExecutor<T extends Entity> {
