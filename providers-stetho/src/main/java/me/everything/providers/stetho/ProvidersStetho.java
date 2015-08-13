@@ -138,71 +138,6 @@ public class ProvidersStetho {
     public void enableDefaults() {
 
         // ========================
-        // Calendars
-        // ========================
-
-        registerProvider("provider-calendar", "calendars", new QueryExecutor<Calendar>() {
-            @Override
-            public Data<Calendar> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                return calendarProvider.getCalendars();
-            }
-        });
-
-        registerProvider("provider-calendar", "events", new QueryExecutor<Event>() {
-            @Override
-            public Data<Event> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
-                Integer calendarId = Integer.valueOf(queryResolver.whereId);
-                return calendarProvider.getEvents(calendarId);
-            }
-        });
-
-        registerProvider("provider-calendar", "instances", new QueryExecutor<Instance>() {
-            @Override
-            public Data<Instance> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
-                Integer eventId = Integer.valueOf(queryResolver.whereId);
-
-                // 5 years ago
-                java.util.Calendar cal = java.util.Calendar.getInstance();
-                cal.add(java.util.Calendar.YEAR, -5);
-                long begin = cal.getTimeInMillis();
-
-                // 1 year ahead
-                cal = java.util.Calendar.getInstance();
-                cal.add(java.util.Calendar.YEAR, 1);
-                long end = cal.getTimeInMillis();
-
-                return calendarProvider.getInstances(eventId, begin, end);
-            }
-
-
-        });
-
-        registerProvider("provider-calendar", "reminders", new QueryExecutor<Reminder>() {
-            @Override
-            public Data<Reminder> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
-                Integer eventId = Integer.valueOf(queryResolver.whereId);
-                return calendarProvider.getReminders(eventId);
-            }
-        });
-
-        registerProvider("provider-calendar", "attendees", new QueryExecutor<Attendee>() {
-            @Override
-            public Data<Attendee> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
-                Integer eventId = Integer.valueOf(queryResolver.whereId);
-                return calendarProvider.getAttendees(eventId);
-            }
-        });
-
-        // ========================
         // Contacts
         // ========================
 
@@ -271,6 +206,71 @@ public class ProvidersStetho {
         });
 
         // ========================
+        // Calendars
+        // ========================
+
+        registerProvider("provider-calendar", "calendars", new QueryExecutor<Calendar>() {
+            @Override
+            public Data<Calendar> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                return calendarProvider.getCalendars();
+            }
+        });
+
+        registerProvider("provider-calendar", "events", new QueryExecutor<Event>() {
+            @Override
+            public Data<Event> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer calendarId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getEvents(calendarId);
+            }
+        });
+
+        registerProvider("provider-calendar", "instances", new QueryExecutor<Instance>() {
+            @Override
+            public Data<Instance> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+
+                // 5 years ago
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.add(java.util.Calendar.YEAR, -5);
+                long begin = cal.getTimeInMillis();
+
+                // 1 year ahead
+                cal = java.util.Calendar.getInstance();
+                cal.add(java.util.Calendar.YEAR, 1);
+                long end = cal.getTimeInMillis();
+
+                return calendarProvider.getInstances(eventId, begin, end);
+            }
+
+
+        });
+
+        registerProvider("provider-calendar", "reminders", new QueryExecutor<Reminder>() {
+            @Override
+            public Data<Reminder> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getReminders(eventId);
+            }
+        });
+
+        registerProvider("provider-calendar", "attendees", new QueryExecutor<Attendee>() {
+            @Override
+            public Data<Attendee> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getAttendees(eventId);
+            }
+        });
+
+        // ========================
         // Browser
         // ========================
 
@@ -291,7 +291,7 @@ public class ProvidersStetho {
         });
 
         // ========================
-        // Browser
+        // Dictionary
         // ========================
 
         registerProvider("provider-dictionary", "words", new QueryExecutor<Word>() {
