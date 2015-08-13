@@ -17,8 +17,12 @@ import java.util.Set;
 import me.everything.providers.android.browser.Bookmark;
 import me.everything.providers.android.browser.BrowserProvider;
 import me.everything.providers.android.browser.Search;
+import me.everything.providers.android.calendar.Attendee;
 import me.everything.providers.android.calendar.Calendar;
 import me.everything.providers.android.calendar.CalendarProvider;
+import me.everything.providers.android.calendar.Event;
+import me.everything.providers.android.calendar.Instance;
+import me.everything.providers.android.calendar.Reminder;
 import me.everything.providers.android.calllog.Call;
 import me.everything.providers.android.calllog.CallsProvider;
 import me.everything.providers.android.contacts.Contact;
@@ -34,7 +38,11 @@ import me.everything.providers.android.media.Image;
 import me.everything.providers.android.media.MediaProvider;
 import me.everything.providers.android.media.Playlist;
 import me.everything.providers.android.media.Video;
-import me.everything.providers.android.telephony.*;
+import me.everything.providers.android.telephony.Carrier;
+import me.everything.providers.android.telephony.Conversation;
+import me.everything.providers.android.telephony.Mms;
+import me.everything.providers.android.telephony.Sms;
+import me.everything.providers.android.telephony.TelephonyProvider;
 import me.everything.providers.android.telephony.Thread;
 import me.everything.providers.core.Data;
 import me.everything.providers.core.Entity;
@@ -80,7 +88,7 @@ public class ProvidersStetho {
     }
 
     List<String> getCategories() {
-       return mCategories;
+        return mCategories;
     }
 
     public List<String> getProviders(String categoryName) {
@@ -125,7 +133,7 @@ public class ProvidersStetho {
     }
 
     /**
-     * Enable all providers
+     * Enable all android built-in providers
      */
     public void enableDefaults() {
 
@@ -141,39 +149,56 @@ public class ProvidersStetho {
             }
         });
 
-        registerProvider("provider-calendar", "events", new QueryExecutor<Calendar>() {
+        registerProvider("provider-calendar", "events", new QueryExecutor<Event>() {
             @Override
-            public Data<Calendar> onQuery(String query) {
+            public Data<Event> onQuery(String query) {
                 CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                // TODO - fetch calendar id  from query
-                return null;
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer calendarId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getEvents(calendarId);
             }
         });
 
-        registerProvider("provider-calendar", "instances", new QueryExecutor<Calendar>() {
+        registerProvider("provider-calendar", "instances", new QueryExecutor<Instance>() {
             @Override
-            public Data<Calendar> onQuery(String query) {
+            public Data<Instance> onQuery(String query) {
                 CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                // TODO - fetch event id from query
-                return null;
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+
+                // 5 years ago
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.add(java.util.Calendar.YEAR, -5);
+                long begin = cal.getTimeInMillis();
+
+                // 1 year ahead
+                cal = java.util.Calendar.getInstance();
+                cal.add(java.util.Calendar.YEAR, 1);
+                long end = cal.getTimeInMillis();
+
+                return calendarProvider.getInstances(eventId, begin, end);
+            }
+
+
+        });
+
+        registerProvider("provider-calendar", "reminders", new QueryExecutor<Reminder>() {
+            @Override
+            public Data<Reminder> onQuery(String query) {
+                CalendarProvider calendarProvider = new CalendarProvider(mContext);
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getReminders(eventId);
             }
         });
 
-        registerProvider("provider-calendar", "reminders", new QueryExecutor<Calendar>() {
+        registerProvider("provider-calendar", "attendees", new QueryExecutor<Attendee>() {
             @Override
-            public Data<Calendar> onQuery(String query) {
+            public Data<Attendee> onQuery(String query) {
                 CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                // TODO - fetch event id from query
-                return null;
-            }
-        });
-
-        registerProvider("provider-calendar", "attendees", new QueryExecutor<Calendar>() {
-            @Override
-            public Data<Calendar> onQuery(String query) {
-                CalendarProvider calendarProvider = new CalendarProvider(mContext);
-                // TODO - fetch event id from query
-                return null;
+                Database.QueryResolver queryResolver = new Database.QueryResolver(query);
+                Integer eventId = Integer.valueOf(queryResolver.whereId);
+                return calendarProvider.getAttendees(eventId);
             }
         });
 

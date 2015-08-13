@@ -112,8 +112,8 @@ public class Database implements ChromeDevtoolsDomain {
 
         try {
 
-            QueryRelover queryRelover = new QueryRelover(query);
-            String tableName = queryRelover.tableName;
+            QueryResolver queryResolver = new QueryResolver(query);
+            String tableName = queryResolver.tableName;
 
             String[] columns = mProvidersPeerManager.getColumns(databaseId, tableName);
             List<? extends Entity> entities = mProvidersPeerManager.getEntites(databaseId, tableName, query);
@@ -139,13 +139,23 @@ public class Database implements ChromeDevtoolsDomain {
         return rows;
     }
 
-    private static class QueryRelover {
+    static class QueryResolver {
+
+        // #events:schema
+        // #events:col=aas,add:id=100:orderby=aas:limit=100
 
         String tableName;
+        String whereId;
 
-        public QueryRelover(String query) {
+        public QueryResolver(String query) {
             query = query.toLowerCase();
-            tableName = query.split("\"")[1];
+            if (query.startsWith("#")) {
+                // example: #events:id=100
+                tableName = query.substring(1, query.indexOf(":"));
+                whereId = query.substring(query.indexOf("=") + 1);
+            } else {
+                tableName = query.split("\"")[1];
+            }
         }
     }
 
