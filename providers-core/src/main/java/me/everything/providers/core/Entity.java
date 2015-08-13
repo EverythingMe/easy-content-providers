@@ -148,6 +148,9 @@ public abstract class Entity {
         for (String column : columns) {
             Field field = getColumnField(column, entity);
             Object value = getColumnValue(field, entity);
+            if (value instanceof EnumInt) {
+                value = String.valueOf(value);
+            }
             values.add(value);
         }
         return values;
