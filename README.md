@@ -1,5 +1,5 @@
 # easy-content-providers
-Manage (CRUD) Android built-in and custom content providers data + Chrome debug view support (stetho) + Sample app
+Manage (CRUD) Android built-in and custom content providers data + Chrome Dev Tool support (Stetho extension) + Sample app
 
 ## Here, About the Libraries
 - [Android Providers](#android-providers)<br>
@@ -32,7 +32,7 @@ Many times we experiment new features, new apps, new ideas or we just code throu
 
 Now, if you look for very high performance, then check if these libs meet your needs. Because, reflection is used here, and some additional operations to make ORM implementation generic. Also, if you don't define the exact columns you want, the mapping will happen on all columns (select * from ...). Sometimes, this is not what you want.
 
-### Android Providers
+## Android Providers
 
 ```
 dependencies {
@@ -53,7 +53,7 @@ dependencies {
 	- Conversations
 	- Threads
 	- Carriers
-- Media
+- Media (external + internal)
 	- Files
 	- Images
 	- Videos
@@ -248,7 +248,11 @@ To get a `Cursor`:
 Cursor cursor = data.getCursor();
 ```
 
-### Custom Provider
+<br>
+
+----
+
+## Custom Provider
 
 You can create your own model, based on your own content provider. Use annotations to map your table schema to your model. This will give you the same power of simplicity as for android providers. In fact, android providers has the same technics.
 
@@ -351,17 +355,80 @@ And annotate your fields by using next options:
 	}
     ```
 
+<br>
 
-### Stetho Extension
-It is possible to present all providers data in Chrome Debug Tools by extending Stetho lib
+----
 
-// TODO - show code
+## Stetho Extension
+It is possible to present all providers data in Chrome Dev Tool by extending Stetho lib
+
+**Setup Stetho**<br>
+Setup in default mode + this extension with all Android built-in providers
+``` java
+public class MainApplication extends Application {
+
+    public void onCreate() {
+        super.onCreate();
+
+		ProvidersStetho providersStetho = new ProvidersStetho(context);
+		providersStetho.enableDefaults();
+
+		Stetho.initialize(Stetho.newInitializerBuilder(context)
+		    .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
+		    .enableWebKitInspector(providersStetho.defaultInspectorModulesProvider())
+		    .build());	
+
+	}
+
+}
+```
 
 And this is how it looks:
 
+// TODO - update screenshot
 ![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers.png)
 
+**Your own providers**<br>
+And of course, you can see your own providers by registring them. In our example (Check sample app):
+``` java
+... 
+providersStetho.registerProvider("provider-custom", "posts", new ProvidersStetho.QueryExecutor<Post>() {
+    @Override
+    public Data<Post> onQuery(String query) {
+        PostsProvider provider = new PostsProvider(getApplicationContext());
+        return provider.getPosts();
+    }
+});	
+...
+```
 
-### Sample App
+And this is how it looks:
+
+// TODO - add screenshot
+
+**Important Notes**
+
+- Once you select a table, it might take few seconds until the result is shown. It's just go all the way to provider and back.
+
+- If you decide to run query, the only supported query is `select * from "tablename"`.
+
+- For `provider-calendar` tables you can select from `events`, `instances`, `reminders`, `attendees` only in the next way (until proper query resolver solution will be added):
+
+	- `#events:id=3` - select from events where calendar id = 3
+	- `#instances:id=100` - select from instances where event id = 100
+	- `#reminders:id=100` - select from reminders where event id = 100
+	- `#attendees:id=100` - select from attendees where event id = 100
+
+<br>
+
+----
+
+## Sample App
 
 // TODO
+
+## Author
+[Roman Kushnarenko - sromku](https://github.com/sromku)
+
+## License
+Apache License 2.0
