@@ -360,7 +360,11 @@ And annotate your fields by using next options:
 ----
 
 ## Stetho Extension
-It is possible to present all providers data in Chrome Dev Tool by extending Stetho lib
+It is possible to present all providers data in Chrome Dev Tool by extending Stetho lib. You don't need all stuff above, if this is the only thing you want.
+
+```
+compile 'me.everything:providers-stetho:1.0.0' 
+```
 
 **Setup Stetho**<br>
 Setup in default mode + this extension with all Android built-in providers
@@ -385,10 +389,9 @@ public class MainApplication extends Application {
 
 And this is how it looks:
 
-// TODO - update screenshot
 ![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers.png)
 
-**Your own providers**<br>
+**Add your own providers**<br>
 And of course, you can see your own providers by registring them. In our example (Check sample app):
 ``` java
 ... 
@@ -404,7 +407,7 @@ providersStetho.registerProvider("provider-custom", "posts", new ProvidersStetho
 
 And this is how it looks:
 
-// TODO - add screenshot
+![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers-custom.png)
 
 **Important Notes**
 
@@ -419,13 +422,16 @@ And this is how it looks:
 	- `#reminders:id=100` - select from reminders where event id = 100
 	- `#attendees:id=100` - select from attendees where event id = 100
 
+	![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers-sql.png)
+
 <br>
 
 ----
 
 ## Sample App
 
-// TODO
+- Sample app has all content provider examples with screen for each provider data
+- Stetho is there, so you can inspect it
 
 ## Author
 [Roman Kushnarenko - sromku](https://github.com/sromku)
