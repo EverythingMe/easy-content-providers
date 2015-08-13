@@ -17,7 +17,7 @@ Work easy with Android built-in and custom content providers data + Stetho exten
 	```
 
 - [Stetho Extension](#stetho-extension)<br>
-	Based on Facebook [Stetho](https://github.com/facebook/stetho) library, all providers are presented in Chrome Developer Tool.
+	[Stetho](https://github.com/facebook/stetho) extension library to view all content providers data in Chrome Developer Tool.
 
 	```
 	compile 'me.everything:providers-stetho:1.0.0' 
@@ -409,7 +409,7 @@ And this is how it looks:
 
 ![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/stetho-providers-custom.png)
 
-**Important Notes**
+**SQL Query - Important Notes**
 
 - Once you select a table, it might take few seconds until the result is shown. It's just go all the way to provider and back.
 
