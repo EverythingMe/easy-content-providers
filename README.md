@@ -1,5 +1,5 @@
 # easy-content-providers
-Manage (CRUD) Android built-in and custom content providers data + Chrome Dev Tool support (Stetho extension) + Sample app
+Work easy with Android built-in and custom content providers data + Stetho extension + Sample app
 
 ## Here, About the Libraries
 - [Android Providers](#android-providers)<br>
