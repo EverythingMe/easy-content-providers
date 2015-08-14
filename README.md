@@ -6,7 +6,7 @@ Work easy with Android built-in and custom content providers data + Stetho exten
 	Simple API for all Android built-in providers. Get, Update, Delete, Insert.
 
 	```
-	compile 'me.everything:providers-android:1.0.0' 
+	compile 'me.everything:providers-android:1.0.1' 
 	```
 
 - [Custom Model and Provider](#custom-provider)<br>
@@ -20,7 +20,7 @@ Work easy with Android built-in and custom content providers data + Stetho exten
 	[Stetho](https://github.com/facebook/stetho) extension library to view all content providers data in Chrome Developer Tool.
 
 	```
-	compile 'me.everything:providers-stetho:1.0.0' 
+	compile 'me.everything:providers-stetho:1.0.1' 
 	```
 
 - [Sample App](#sample-app)<br>
@@ -36,7 +36,7 @@ Now, if you look for very high performance, then check if these libs meet your n
 
 ```
 dependencies {
-    compile 'me.everything:providers-android:1.0.0'
+    compile 'me.everything:providers-android:1.0.1'
 }
 ```
 
@@ -363,7 +363,7 @@ And annotate your fields by using next options:
 It is possible to present all providers data in Chrome Dev Tool by extending Stetho lib. You don't need all stuff above, if this is the only thing you want.
 
 ```
-compile 'me.everything:providers-stetho:1.0.0' 
+compile 'me.everything:providers-stetho:1.0.1' 
 ```
 
 **Setup Stetho**<br>
@@ -432,6 +432,8 @@ And this is how it looks:
 
 - Sample app has all content provider examples with screen for each provider data
 - Stetho is there, so you can inspect it
+
+	![Screenshot](https://github.com/EverythingMe/easy-content-providers/wiki/images/sample-app.png)
 
 ## Author
 [Roman Kushnarenko - sromku](https://github.com/sromku)
