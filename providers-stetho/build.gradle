@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/EverythingMe/easy-content-providers'
     gitUrl = 'https://github.com/EverythingMe/easy-content-providers.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'sromku'
     developerName = 'Roman Kushnarenko'
@@ -58,7 +58,7 @@ buildscript {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':providers-core')
-    compile project(':providers-android')
+    compile 'me.everything:providers-core:1.0.0'
+    compile 'me.everything:providers-android:1.0.1'
     compile 'com.facebook.stetho:stetho:1.1.1'
 }
