@@ -25,7 +25,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
-    compile project(':providers-core')
-    compile project(':providers-android')
-    compile project(':providers-stetho')
+    compile 'me.everything:providers-core:1.0.0'
+    compile 'me.everything:providers-android:1.0.1'
+    compile 'me.everything:providers-stetho:1.0.1'
+//    compile project(':providers-core')
+//    compile project(':providers-android')
+//    compile project(':providers-stetho')
 }
