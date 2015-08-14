@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/EverythingMe/easy-content-providers'
     gitUrl = 'https://github.com/EverythingMe/easy-content-providers.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'sromku'
     developerName = 'Roman Kushnarenko'
@@ -58,5 +58,5 @@ buildscript {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':providers-core')
+    compile 'me.everything:providers-core:1.0.0'
 }
