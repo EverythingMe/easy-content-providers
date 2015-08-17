@@ -1,6 +1,8 @@
 # easy-content-providers
 Work easy with Android built-in and custom content providers data + Stetho extension + Sample app
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-easy--content--providers-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2334)
+
 ## Here, About the Libraries
 - [Android Providers](#android-providers)<br>
 	Simple API for all Android built-in providers. Get, Update, Delete, Insert.
