@@ -16,6 +16,13 @@ The library uses reflection and some additional operations to make the ORM imple
 
 ## Example Usage
 
+Gradle:
+```
+dependencies {
+    compile 'me.everything:providers-android:1.0.1'
+}
+```
+
 Getting all calendars:
 
 ```java
@@ -23,12 +30,18 @@ CalanderProvider provider = new CalendarProvider(context);
 List<Calendar> calendars = provider.getCalendars().getList();
 ```
 
-
 **Full documentation** can be found at [the wiki](https://github.com/EverythingMe/easy-content-providers/wiki).
 
 
 
 ## Inspecting provider data
+
+Gradle:
+```
+dependencies {
+    compile 'me.everything:providers-stetho:1.0.1' 
+}
+```
 
 Leveraging Stetho's ability to inspect SQLite databases, you can visualize, explore and modify all provider data.
 
