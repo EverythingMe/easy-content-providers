@@ -91,7 +91,7 @@ public class Sms extends Entity {
 		private MessageType(int val) {
 			this.val = val;
 		}
-
+			
 		public static MessageType fromVal(int val) {
 			for (MessageType messageType : values()) {
 				if (messageType.val == val) {
@@ -100,6 +100,7 @@ public class Sms extends Entity {
 			}
 			return null;
 		}
+		public int getValue(){return val;}
 	}
 
 	public static enum MessageStatus implements EnumInt {
@@ -122,5 +123,6 @@ public class Sms extends Entity {
 			}
 			return null;
 		}
+		public int getValue(){return val;}
 	}
 }
